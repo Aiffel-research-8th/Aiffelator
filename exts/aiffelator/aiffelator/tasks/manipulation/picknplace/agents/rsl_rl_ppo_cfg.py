@@ -4,6 +4,6 @@ from omni.isaac.lab_tasks.utils.wrappers.rsl_rl import (
 )
 
 @configclass
-class PickAndPlacePPORunnerCfg(RslRlOnPolicyRunnerCfg):
+class SingleTablePickAndPlacePPORunnerCfg(RslRlOnPolicyRunnerCfg):
     # TODO PPO Agent 구현
     pass
