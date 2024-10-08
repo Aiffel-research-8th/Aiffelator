@@ -14,14 +14,8 @@ class TerminationsCfg:
     # TODO Termination Term 구현
     # (1) Time out
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
-    # (2) Object is out of bounds
-    # (2) Cart out of bounds
-    cart_out_of_bounds = DoneTerm(
-        func=mdp.joint_pos_out_of_manual_limit,
-        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]), "bounds": (-3.0, 3.0)},
-    )
     
-    # (3) Final Goal is achived
+    # (2) Final Goal is achived
     object_reached_goal = DoneTerm( 
         func=mdp.object_reached_goal,
         params={"command_name": "object_pose", 

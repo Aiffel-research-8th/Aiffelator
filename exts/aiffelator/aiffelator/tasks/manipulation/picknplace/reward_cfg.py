@@ -7,17 +7,18 @@ from . import mdp
 # specific to this task and env: object_ee_distance, object_is_lifted, object_goal_distance
 # Common to all tasks: action_rate_l2, joint_vel_l2
 
+
 @configclass
 class FlatTableOneObjRewardsCfg:
     """Reward terms for the MDP."""
     # (1) reaching the object
-    # (2) pick the object
-    # (3) reaching to the goal
-    
     reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
 
+    # (2) pick and lift the object
+    # NOTE : picking reward would not be nessacery
     lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=15.0)
 
+    # (3) delivering an object to the goal
     object_goal_tracking = RewTerm(
         func=mdp.object_goal_distance,
         params={"std": 0.3, "minimal_height": 0.04, "command_name": "object_pose"},
@@ -29,10 +30,15 @@ class FlatTableOneObjRewardsCfg:
         params={"std": 0.05, "minimal_height": 0.04, "command_name": "object_pose"},
         weight=5.0,
     )
-
-    # action penalty
+    # Failure penalty
+    # # object is out of limits 
+    # # TODO
+    # # dropping object
+    # # TODO
+    # Action penalty
+    # # penalize the rate of change of the actions using L2 squared kernel.
     action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
-
+    # # slower joint velocity
     joint_vel = RewTerm(
         func=mdp.joint_vel_l2,
         weight=-1e-4,
@@ -43,14 +49,14 @@ class FlatTableOneObjRewardsCfg:
 @configclass
 class FlatTableMultiObjRewardsCfg:
     """Reward terms for the MDP."""
-    # (1) reaching the object
-    # (2) pick the object
-    # (3) reaching to the goal
+    # (1) reaching to the object
+    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1, "object_cfg": SceneEntityCfg("object"), "ee_frame_cfg": SceneEntityCfg("ee_frame"), }, weight=1.0)
 
-    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0) 
-
+    # (2) pick and lift the object
+    # NOTE : picking reward would not be nessacery
     lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=15.0)
 
+    # (3) delivering an object to the goal
     object_goal_tracking = RewTerm(
         func=mdp.object_goal_distance,
         params={"std": 0.3, "minimal_height": 0.04, "command_name": "object_pose"},
@@ -62,8 +68,12 @@ class FlatTableMultiObjRewardsCfg:
         params={"std": 0.05, "minimal_height": 0.04, "command_name": "object_pose"},
         weight=5.0,
     )
-
-    # action penalty
+    # Failure penalty
+    # # object is out of limits
+    # # TODO
+    # # dropping object
+    # # TODO
+    # Action penalty
     action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
 
     joint_vel = RewTerm(
