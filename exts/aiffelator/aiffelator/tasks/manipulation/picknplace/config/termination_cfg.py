@@ -1,7 +1,7 @@
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.managers import SceneEntityCfg
 from omni.isaac.lab.managers import TerminationTermCfg as DoneTerm
-from . import mdp
+from .. import mdp
 
 # specific to this task and env: -
 # Common to all tasks: time_out, joint_pos_out_of_manual_limit
