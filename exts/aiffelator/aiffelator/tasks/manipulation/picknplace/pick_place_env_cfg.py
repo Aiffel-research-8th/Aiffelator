@@ -1,8 +1,8 @@
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.envs import ManagerBasedRLEnvCfg
 
-from reward_cfg import FlatTableOneObjRewardsCfg
-from termination_cfg import TerminationsCfg
+from config.reward_cfg import FlatTableOneObjRewardsCfg
+from config.termination_cfg import TerminationsCfg
 
 
 @configclass
