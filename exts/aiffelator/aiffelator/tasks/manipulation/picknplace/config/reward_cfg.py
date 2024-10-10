@@ -2,7 +2,7 @@ from omni.isaac.lab.managers import RewardTermCfg as RewTerm
 from omni.isaac.lab.managers import SceneEntityCfg
 from omni.isaac.lab.utils import configclass
 
-from .. import mdp
+from . import mdp
 
 # specific to this task and env: object_ee_distance, object_is_lifted, object_goal_distance
 # Common to all tasks: action_rate_l2, joint_vel_l2
