@@ -3,6 +3,8 @@ from omni.isaac.lab.envs import ManagerBasedRLEnvCfg
 
 from config.reward_cfg import FlatTableOneObjRewardsCfg
 from config.termination_cfg import TerminationsCfg
+from config.scene_cfg import DeskSingleObjectSceneCfg
+from config.observation_cfg import DeskSingleObjectObservationsCfg
 
 
 @configclass
@@ -10,9 +12,22 @@ class SingleTablePickAndPlaceEnvCfg(ManagerBasedRLEnvCfg):
     # TODO 전체 Term Module 등록
 
     # MDP settings
+    scene: DeskSingleObjectSceneCfg = DeskSingleObjectSceneCfg(num_envs=32, env_spacing=3)
+    observations: DeskSingleObjectObservationsCfg = DeskSingleObjectObservationsCfg()
     rewards: FlatTableOneObjRewardsCfg = FlatTableOneObjRewardsCfg()
     terminations: TerminationsCfg = TerminationsCfg()
 
     def __post_init__(self):
         """Post initialization."""
-        pass
+        # general settings
+        self.decimation = 2
+        self.episode_length_s = 5.0
+        # simulation settings
+        self.sim.dt = 0.01  # 100Hz
+        self.sim.render_interval = self.decimation
+
+        self.sim.physx.bounce_threshold_velocity = 0.2
+        self.sim.physx.bounce_threshold_velocity = 0.01
+        self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
+        self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
+        self.sim.physx.friction_correlation_distance = 0.00625
