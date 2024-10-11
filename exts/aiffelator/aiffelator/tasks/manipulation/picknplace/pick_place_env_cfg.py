@@ -5,6 +5,9 @@ from config.reward_cfg import FlatTableOneObjRewardsCfg
 from config.termination_cfg import TerminationsCfg
 from config.scene_cfg import DeskSingleObjectSceneCfg
 from config.observation_cfg import DeskSingleObjectObservationsCfg
+from config.action_cfg import ActionsCfg
+from config.command_cfg import CommandsCfg
+from config.event_cfg import SingleObjectEventCfg
 
 
 @configclass
@@ -14,6 +17,10 @@ class SingleTablePickAndPlaceEnvCfg(ManagerBasedRLEnvCfg):
     # MDP settings
     scene: DeskSingleObjectSceneCfg = DeskSingleObjectSceneCfg(num_envs=32, env_spacing=3)
     observations: DeskSingleObjectObservationsCfg = DeskSingleObjectObservationsCfg()
+    actions: ActionsCfg = ActionsCfg()
+    commands: CommandsCfg = CommandsCfg()
+    resets: SingleObjectEventCfg = SingleObjectEventCfg()
+    
     rewards: FlatTableOneObjRewardsCfg = FlatTableOneObjRewardsCfg()
     terminations: TerminationsCfg = TerminationsCfg()
 
