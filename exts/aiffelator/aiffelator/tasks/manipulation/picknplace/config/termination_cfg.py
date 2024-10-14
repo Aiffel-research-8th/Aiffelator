@@ -8,7 +8,7 @@ from . import mdp
 
 
 @configclass
-class TerminationsCfg:
+class SingleObjectTerminationsCfg:
     """Termination terms for the MDP."""
 
     # TODO Termination Term 구현
@@ -17,10 +17,10 @@ class TerminationsCfg:
     
     # (2) Final Goal is achived
     object_reached_goal = DoneTerm( 
-        func=mdp.object_reached_goal,
-        params={"command_name": "object_pose", 
-                "threshold": 0.02,
+        func=mdp.object_reached_goal_place,
+        params={"threshold": 0.02,
                 "robot_cfg": SceneEntityCfg("robot"),
-                "object_cfg": SceneEntityCfg("object"),
+                "object": SceneEntityCfg("pencil_case"),
+                "place": SceneEntityCfg("place_pencil_case")
                 },
     )

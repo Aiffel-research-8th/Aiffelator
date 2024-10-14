@@ -18,13 +18,15 @@ class AiffelatorScenes:
             pos = (0.03, -0.5, 0.01), (-0.65, -0.2, 0.075) # desk, bookcase
             rot = [0, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
+            pose_range = {"x": (-0.08, 0.03), "y": (-0.5, -0.35), "z": (0.01, 0.01)}
 
         class PencilCase:
             usd_path = "../env/place_pencil_case.usd"
             prim_path = "{ENV_REGEX_NS}/place_pencil_case"
             pos = (0.03, 0.5, 0.01), (-0.65, 0.2,0.415) # desk, bookcase
             rot = [0, 0, 0, 0]
-            scale=(1.0, 1.0, 1.0)
+            scale = (1.0, 1.0, 1.0)
+            pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
 
     class Table:
         usd_path = "../env/table.usd"
@@ -47,6 +49,7 @@ class AiffelatorScenes:
             pos = [0.5, 0.3, 0.037]
             rot = [1, 0, 0, 0]
             scale = (0.002, 0.002, 0.002)
+            pose_range = {"x": (0.32, 0.45), "y": (0.18, 0.45), "z": (0.037, 0.037)}
 
         class Pen:
             usd_path = "../env/pen.usd"
@@ -54,6 +57,7 @@ class AiffelatorScenes:
             pos = [0.5, -0.3, 0.01]
             rot = [0.70711, 0.70711, 0, 0]
             scale = (0.001, 0.001, 0.001)
+            pose_range = {"x": (0.32, 0.45), "y": (-0.45, -0.18), "z": (0.01, 0.01)}
 
     @staticmethod
     def ground_plane() -> AssetBaseCfg:

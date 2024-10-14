@@ -1,28 +1,28 @@
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.envs import ManagerBasedRLEnvCfg
 
-from config.reward_cfg import FlatTableOneObjRewardsCfg
-from config.termination_cfg import TerminationsCfg
+from config.reward_cfg import SingleObjectRewardsCfg
+from config.termination_cfg import SingleObjectTerminationsCfg
 from config.scene_cfg import DeskSingleObjectSceneCfg
 from config.observation_cfg import DeskSingleObjectObservationsCfg
 from config.action_cfg import ActionsCfg
-from config.command_cfg import CommandsCfg
+from config.command_cfg import SingleObjectCommandsCfg
 from config.event_cfg import SingleObjectEventCfg
 
 
 @configclass
-class SingleTablePickAndPlaceEnvCfg(ManagerBasedRLEnvCfg):
+class SingleObjectPickAndPlaceEnvCfg(ManagerBasedRLEnvCfg):
     # TODO 전체 Term Module 등록
 
     # MDP settings
     scene: DeskSingleObjectSceneCfg = DeskSingleObjectSceneCfg(num_envs=32, env_spacing=3)
     observations: DeskSingleObjectObservationsCfg = DeskSingleObjectObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
-    commands: CommandsCfg = CommandsCfg()
+    commands: SingleObjectCommandsCfg = SingleObjectCommandsCfg()
     resets: SingleObjectEventCfg = SingleObjectEventCfg()
     
-    rewards: FlatTableOneObjRewardsCfg = FlatTableOneObjRewardsCfg()
-    terminations: TerminationsCfg = TerminationsCfg()
+    rewards: SingleObjectRewardsCfg = SingleObjectRewardsCfg()
+    terminations: SingleObjectTerminationsCfg = SingleObjectTerminationsCfg()
 
     def __post_init__(self):
         """Post initialization."""

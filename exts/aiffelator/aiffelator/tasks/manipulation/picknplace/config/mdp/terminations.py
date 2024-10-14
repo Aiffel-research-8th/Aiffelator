@@ -51,3 +51,23 @@ def object_reached_goal(
 
     # rewarded if the object is lifted above the threshold
     return distance < threshold
+
+def object_reached_goal_place(
+    env: ManagerBasedRLEnv,
+    threshold: float = 0.02,
+    robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
+    place_cfg: SceneEntityCfg = SceneEntityCfg("place")
+) -> torch.Tensor:
+    # extract the used quantities (to enable type-hinting)
+    robot: RigidObject = env.scene[robot_cfg.name]
+    object: RigidObject = env.scene[object_cfg.name]
+    place: RigidObject = env.scene[place_cfg.name]
+    # compute the desired position in the world frame
+    des_pos_b = place[:, :3]
+    des_pos_w, _ = combine_frame_transforms(robot.data.root_state_w[:, :3], robot.data.root_state_w[:, 3:7], des_pos_b)
+    # distance of the end-effector to the object: (num_envs,)
+    distance = torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
+
+    # rewarded if the object is lifted above the threshold
+    return distance < threshold
