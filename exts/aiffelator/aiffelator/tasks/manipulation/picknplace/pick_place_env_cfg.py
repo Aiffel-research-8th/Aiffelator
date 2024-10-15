@@ -1,13 +1,13 @@
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.envs import ManagerBasedRLEnvCfg
 
-from config.reward_cfg import SingleObjectRewardsCfg
-from config.termination_cfg import SingleObjectTerminationsCfg
-from config.scene_cfg import DeskSingleObjectSceneCfg
-from config.observation_cfg import DeskSingleObjectObservationsCfg
-from config.action_cfg import ActionsCfg
-from config.command_cfg import SingleObjectCommandsCfg
-from config.event_cfg import SingleObjectEventCfg
+from .config.reward_cfg import SingleObjectRewardsCfg
+from .config.termination_cfg import SingleObjectTerminationsCfg
+from .config.scene_cfg import DeskSingleObjectSceneCfg
+from .config.observation_cfg import DeskSingleObjectObservationsCfg
+from .config.action_cfg import ActionsCfg
+from .config.command_cfg import SingleObjectCommandsCfg
+from .config.event_cfg import SingleObjectEventCfg
 
 
 @configclass
