@@ -44,4 +44,4 @@ def last_action(env: ManagerBasedEnv, action_name: str | None = None) -> torch.T
     
 def get_prim_position(env: ManagerBasedEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     prim: RigidObject = env.scene[asset_cfg.name]
-    return prim.data.root_pos_w[:, :3]
+    return prim.data.root_state_w[:, :3]
