@@ -20,7 +20,7 @@ class SingleObjectTerminationsCfg:
         func=mdp.object_reached_goal_place,
         params={"threshold": 0.02,
                 "robot_cfg": SceneEntityCfg("robot"),
-                "object": SceneEntityCfg("pencil_case"),
-                "place": SceneEntityCfg("place_pencil_case")
+                "object_cfg": SceneEntityCfg("pencil_case"),
+                "place_cfg": SceneEntityCfg("place_pencil_case")
                 },
     )

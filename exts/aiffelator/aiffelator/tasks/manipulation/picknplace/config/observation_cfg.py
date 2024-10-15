@@ -17,7 +17,7 @@ class DeskSingleObjectObservationsCfg:
             func=mdp.object_position_in_robot_root_frame, 
             params={
                 "robot_cfg": SceneEntityCfg("robot", body_names="franka"),
-                "object": SceneEntityCfg("pencil_case")
+                "object_cfg": SceneEntityCfg("pencil_case")
             }
         )
         target_object_position = ObsTerm(
@@ -44,13 +44,13 @@ class DeskMultiObjectObservationsCfg:
         pencil_case_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "object": SceneEntityCfg("pencil_case")
+                "object_cfg": SceneEntityCfg("pencil_case")
             }
         )
         pen_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "object": SceneEntityCfg("pen")
+                "object_cfg": SceneEntityCfg("pen")
             }
         )
         target_object_position = ObsTerm(
@@ -77,7 +77,7 @@ class BookcaseSingleObjectObservationsCfg:
         pencil_case_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "object": SceneEntityCfg("pencil_case")
+                "object_cfg": SceneEntityCfg("pencil_case")
             }
         )
         target_object_position = ObsTerm(
@@ -104,13 +104,13 @@ class BookcaseMultiObjectObservationsCfg:
         pencil_case_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "object": SceneEntityCfg("pencil_case")
+                "object_cfg": SceneEntityCfg("pencil_case")
             }
         )
         pen_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "object": SceneEntityCfg("pen")
+                "object_cfg": SceneEntityCfg("pen")
             }
         )
         target_object_position = ObsTerm(
