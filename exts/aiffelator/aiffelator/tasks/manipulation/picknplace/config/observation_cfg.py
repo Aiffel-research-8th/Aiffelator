@@ -16,7 +16,7 @@ class DeskSingleObjectObservationsCfg:
         pencil_case_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "robot_cfg": SceneEntityCfg("robot", body_names="franka"),
+                "robot_cfg": SceneEntityCfg("robot"),
                 "object_cfg": SceneEntityCfg("pencil_case")
             }
         )
