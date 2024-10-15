@@ -1,7 +1,7 @@
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.scene import InteractiveSceneCfg
 
-from mdp import AiffelatorScenes
+from .mdp import AiffelatorScenes
 
 @configclass
 class DeskSingleObjectSceneCfg(InteractiveSceneCfg):

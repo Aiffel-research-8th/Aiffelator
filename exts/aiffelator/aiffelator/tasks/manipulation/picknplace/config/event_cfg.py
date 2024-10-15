@@ -3,7 +3,7 @@ from omni.isaac.lab.managers import EventTermCfg as EventTerm
 from omni.isaac.lab.managers import SceneEntityCfg
 
 from . import mdp
-from mdp import AiffelatorScenes
+from .mdp import AiffelatorScenes
 
 @configclass
 class SingleObjectEventCfg:
