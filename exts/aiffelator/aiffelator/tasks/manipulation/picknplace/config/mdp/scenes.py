@@ -13,7 +13,7 @@ class AiffelatorScenes:
 
     class Place:
         class Pen:
-            usd_path = "../env/place_pen.usd"
+            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/place_pen.usd"
             prim_path = "{ENV_REGEX_NS}/place_pen"
             pos = (0.03, -0.5, 0.01), (-0.65, -0.2, 0.075) # desk, bookcase
             rot = [0, 0, 0, 0]
@@ -21,7 +21,7 @@ class AiffelatorScenes:
             pose_range = {"x": (-0.08, 0.03), "y": (-0.5, -0.35), "z": (0.01, 0.01)}
 
         class PencilCase:
-            usd_path = "../env/place_pencil_case.usd"
+            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/place_pencil_case.usd"
             prim_path = "{ENV_REGEX_NS}/place_pencil_case"
             pos = (0.03, 0.5, 0.01), (-0.65, 0.2,0.415) # desk, bookcase
             rot = [0, 0, 0, 0]
@@ -29,14 +29,14 @@ class AiffelatorScenes:
             pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
 
     class Table:
-        usd_path = "../env/table.usd"
+        usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/table.usd"
         prim_path = "{ENV_REGEX_NS}/Table"
         pos = [0.5, 0, 0]
         rot = [0.70711, 0, 0, 0.70711]
         scale = (1.5, 1.0, 1.0)
     
     class Bookcase:
-        usd_path = "../env/bookcase.usd"
+        usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/bookcase.usd"
         prim_path = "{ENV_REGEX_NS}/Bookcase"
         pos = [-0.7, 0, -1.05]
         rot = [0.70711, 0, 0, 0.70711]
@@ -44,7 +44,7 @@ class AiffelatorScenes:
 
     class Object:
         class PencilCase:
-            usd_path = "../env/pencil_case.usd"
+            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/pencil_case.usd"
             prim_path = "{ENV_REGEX_NS}/PencilCase"
             pos = [0.5, 0.3, 0.037]
             rot = [1, 0, 0, 0]
@@ -52,7 +52,7 @@ class AiffelatorScenes:
             pose_range = {"x": (0.32, 0.45), "y": (0.18, 0.45), "z": (0.037, 0.037)}
 
         class Pen:
-            usd_path = "../env/pen.usd"
+            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/pen.usd"
             prim_path = "{ENV_REGEX_NS}/Pen"
             pos = [0.5, -0.3, 0.01]
             rot = [0.70711, 0.70711, 0, 0]
