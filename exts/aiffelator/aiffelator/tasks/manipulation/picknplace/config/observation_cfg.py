@@ -22,7 +22,7 @@ class DeskSingleObjectObservationsCfg:
         )
         target_object_position = ObsTerm(
             func=mdp.get_prim_position,
-            params={"asset_cfg": SceneEntityCfg("place_pencil_case", body_names="place_pencil_case")}
+            params={"asset_cfg": SceneEntityCfg("place_pencil_case", body_names="board")}
         )
         actions = ObsTerm(func=mdp.last_action)
 
