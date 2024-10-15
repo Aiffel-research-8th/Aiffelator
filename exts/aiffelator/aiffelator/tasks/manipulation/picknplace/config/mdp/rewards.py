@@ -80,7 +80,7 @@ def object_goal_place_distance(
     object: RigidObject = env.scene[object_cfg.name]
     place: RigidObject = env.scene[place_cfg.name]
     # compute the desired position in the world frame
-    des_pos_b = place[:, :3]
+    des_pos_b = place.data.root_state_w[:, :3]
     des_pos_w, _ = combine_frame_transforms(robot.data.root_state_w[:, :3], robot.data.root_state_w[:, 3:7], des_pos_b)
     # distance of the end-effector to the object: (num_envs,)
     distance = torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
