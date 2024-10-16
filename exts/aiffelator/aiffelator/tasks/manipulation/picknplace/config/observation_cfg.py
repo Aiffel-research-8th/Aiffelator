@@ -53,9 +53,13 @@ class DeskMultiObjectObservationsCfg:
                 "object_cfg": SceneEntityCfg("pen")
             }
         )
-        target_object_position = ObsTerm(
-            func=mdp.generated_commands, 
-            params={"command_name": "object_pose"}
+        place_pencil_case_position = ObsTerm(
+            func=mdp.get_prim_position,
+            params={"asset_cfg": SceneEntityCfg("place_pencil_case")}
+        )
+        place_pen_position = ObsTerm(
+            func=mdp.get_prim_position,
+            params={"asset_cfg": SceneEntityCfg("place_pen")}
         )
         actions = ObsTerm(func=mdp.last_action)
 

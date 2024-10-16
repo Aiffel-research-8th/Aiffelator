@@ -24,3 +24,18 @@ class SingleObjectTerminationsCfg:
                 "place_cfg": SceneEntityCfg("place_pencil_case")
         },
     )
+    
+@configclass
+class MultiObjectTerminationsCfg:
+    
+    time_out = DoneTerm(func=mdp.time_out, time_out=True)
+    
+    # (2) Final Goal is achived
+    object_reached_goal = DoneTerm( 
+        func=mdp.multi_object_reached_goal_place,
+        params={"threshold": 0.02,
+                "robot_cfg": SceneEntityCfg("robot"),
+                "object_cfgs": [SceneEntityCfg("pencil_case"), SceneEntityCfg("pen")],
+                "place_cfgs": [SceneEntityCfg("place_pencil_case"), SceneEntityCfg("place_pen")]
+        },
+    )

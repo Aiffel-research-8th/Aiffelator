@@ -54,14 +54,7 @@ def object_reached_goal(
     # rewarded if the object is lifted above the threshold
     return distance < threshold
 
-def object_reached_goal_place(
-    env: ManagerBasedRLEnv,
-    threshold: float = 0.02,
-    robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
-    object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
-    place_cfg: SceneEntityCfg = SceneEntityCfg("place")
-) -> torch.Tensor:
-    # extract the used quantities (to enable type-hinting)
+def is_reached(env, threshold, robot_cfg, object_cfg, place_cfg):
     robot: RigidObject = env.scene[robot_cfg.name]
     object: RigidObject = env.scene[object_cfg.name]
     # compute the desired position in the world frame
@@ -72,3 +65,43 @@ def object_reached_goal_place(
 
     # rewarded if the object is lifted above the threshold
     return distance < threshold
+
+def object_reached_goal_place(
+    env: ManagerBasedRLEnv,
+    threshold: float = 0.02,
+    robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
+    place_cfg: SceneEntityCfg = SceneEntityCfg("place")
+) -> torch.Tensor:
+    # extract the used quantities (to enable type-hinting)
+    return is_reached(
+        env=env, 
+        threshold=threshold, 
+        robot_cfg=robot_cfg, 
+        object_cfg=object_cfg, 
+        place_cfg=place_cfg
+    )
+
+def multi_object_reached_goal_place(
+    env: ManagerBasedRLEnv,
+    threshold: float = 0.02,
+    robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    object_cfgs: list[SceneEntityCfg] = [SceneEntityCfg("object")],
+    place_cfgs: list[SceneEntityCfg] = [SceneEntityCfg("place")]
+) -> torch.Tensor:
+    
+    all_is_reached = []
+
+    for object, place in zip(object_cfgs, place_cfgs):
+        all_is_reached.append(
+            is_reached(
+                env=env, 
+                threshold=threshold, 
+                robot_cfg=robot_cfg, 
+                object_cfg=object, 
+                place_cfg=place
+            )
+        )
+
+    # rewarded if the object is lifted above the threshold
+    return all(all_is_reached)

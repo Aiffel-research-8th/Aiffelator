@@ -74,27 +74,87 @@ class SingleObjectRewardsCfg:
 
 
 @configclass
-class FlatTableMultiObjRewardsCfg:
+class MultiObjectRewardsCfg:
     """Reward terms for the MDP."""
     # (1) reaching to the object
-    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1, "object_cfg": SceneEntityCfg("object"), "ee_frame_cfg": SceneEntityCfg("ee_frame"), }, weight=1.0)
+    reaching_object = RewTerm(
+        func=mdp.object_ee_distance, 
+        params={
+            "std": 0.1,
+            "object_cfg": SceneEntityCfg("pencil_case"),
+            "ee_frame_cfg": SceneEntityCfg("ee_frame")
+        }, 
+        weight=1.0
+    )
 
     # (2) pick and lift the object
     # NOTE : picking reward would not be nessacery
-    lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=15.0)
+    lifting_pencil_case = RewTerm(
+        func=mdp.object_is_lifted, 
+        params={
+            "minimal_height": 0.04,
+            "object_cfg": SceneEntityCfg("pencil_case")
+        }, 
+        weight=15.0
+    )
+    lifting_pen = RewTerm(
+        func=mdp.object_is_lifted, 
+        params={
+            "minimal_height": 0.04,
+            "object_cfg": SceneEntityCfg("pen")
+        }, 
+        weight=15.0
+    )
 
     # (3) delivering an object to the goal
-    object_goal_tracking = RewTerm(
-        func=mdp.object_goal_distance,
-        params={"std": 0.3, "minimal_height": 0.04, "command_name": "object_pose"},
+    pencil_case_goal_tracking = RewTerm(
+        func=mdp.object_goal_place_distance,
+        params={
+            "std": 0.3, 
+            "minimal_height": 0.04,
+            "robot_cfg": SceneEntityCfg("robot"),
+            "object_cfg": SceneEntityCfg("pencil_case"),
+            "place_cfg": SceneEntityCfg("place_pencil_case")
+        },
         weight=16.0,
     )
 
-    object_goal_tracking_fine_grained = RewTerm(
-        func=mdp.object_goal_distance,
-        params={"std": 0.05, "minimal_height": 0.04, "command_name": "object_pose"},
+    pencil_case_goal_tracking_fine_grained = RewTerm(
+        func=mdp.object_goal_place_distance,
+        params={
+            "std": 0.3, 
+            "minimal_height": 0.04,
+            "robot_cfg": SceneEntityCfg("robot"),
+            "object_cfg": SceneEntityCfg("pencil_case"),
+            "place_cfg": SceneEntityCfg("place_pencil_case")
+        },
         weight=5.0,
     )
+    
+    pen_goal_tracking = RewTerm(
+        func=mdp.object_goal_place_distance,
+        params={
+            "std": 0.3, 
+            "minimal_height": 0.04,
+            "robot_cfg": SceneEntityCfg("robot"),
+            "object_cfg": SceneEntityCfg("pen"),
+            "place_cfg": SceneEntityCfg("place_pen")
+        },
+        weight=16.0,
+    )
+
+    pen_goal_tracking_fine_grained = RewTerm(
+        func=mdp.object_goal_place_distance,
+        params={
+            "std": 0.3, 
+            "minimal_height": 0.04,
+            "robot_cfg": SceneEntityCfg("robot"),
+            "object_cfg": SceneEntityCfg("pen"),
+            "place_cfg": SceneEntityCfg("place_pen")
+        },
+        weight=5.0,
+    )
+    
     # Failure penalty
     # # object is out of limits
     # # TODO
