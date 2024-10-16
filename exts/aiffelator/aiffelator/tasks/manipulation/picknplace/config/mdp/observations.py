@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 from omni.isaac.lab.assets import Articulation, RigidObject
 from omni.isaac.lab.managers import SceneEntityCfg
 from omni.isaac.lab.utils.math import subtract_frame_transforms
+from .scenes import AiffelatorScenes
 
 if TYPE_CHECKING:
     from omni.isaac.lab.envs import ManagerBasedEnv, ManagerBasedRLEnv
@@ -44,4 +45,6 @@ def last_action(env: ManagerBasedEnv, action_name: str | None = None) -> torch.T
     
 def get_prim_position(env: ManagerBasedEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     prim: RigidObject = env.scene[asset_cfg.name]
-    return prim.data.root_state_w[:, :3]
+    position = prim.data.root_state_w[:, :3]
+    position = AiffelatorScenes.place_position(name=asset_cfg.name, device=position.device)
+    return position

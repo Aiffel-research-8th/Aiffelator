@@ -22,5 +22,5 @@ class SingleObjectTerminationsCfg:
                 "robot_cfg": SceneEntityCfg("robot"),
                 "object_cfg": SceneEntityCfg("pencil_case"),
                 "place_cfg": SceneEntityCfg("place_pencil_case")
-                },
+        },
     )

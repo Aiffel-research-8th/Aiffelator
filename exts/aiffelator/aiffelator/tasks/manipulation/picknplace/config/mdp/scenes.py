@@ -1,3 +1,5 @@
+import torch
+
 import omni.isaac.lab.sim as sim_utils
 from omni.isaac.lab.assets import ArticulationCfg, AssetBaseCfg
 from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import GroundPlaneCfg
@@ -14,6 +16,7 @@ class AiffelatorScenes:
     class Place:
         class Pen:
             usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/place_pen.usd"
+            name = "place_pen"
             prim_path = "{ENV_REGEX_NS}/place_pen"
             pos = (0.03, -0.5, 0.01), (-0.65, -0.2, 0.075) # desk, bookcase
             rot = [0, 0, 0, 0]
@@ -22,6 +25,7 @@ class AiffelatorScenes:
 
         class PencilCase:
             usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/place_pencil_case.usd"
+            name = "place_pencil_case"
             prim_path = "{ENV_REGEX_NS}/place_pencil_case"
             pos = (0.03, 0.5, 0.01), (-0.65, 0.2,0.415) # desk, bookcase
             rot = [0, 0, 0, 0]
@@ -30,6 +34,7 @@ class AiffelatorScenes:
 
     class Table:
         usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/table.usd"
+        name = "Table"
         prim_path = "{ENV_REGEX_NS}/Table"
         pos = [0.5, 0, 0]
         rot = [0.70711, 0, 0, 0.70711]
@@ -37,6 +42,7 @@ class AiffelatorScenes:
     
     class Bookcase:
         usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/bookcase.usd"
+        name = "Bookcase"
         prim_path = "{ENV_REGEX_NS}/Bookcase"
         pos = [-0.7, 0, -1.05]
         rot = [0.70711, 0, 0, 0.70711]
@@ -45,6 +51,7 @@ class AiffelatorScenes:
     class Object:
         class PencilCase:
             usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/pencil_case.usd"
+            name = "PencilCase"
             prim_path = "{ENV_REGEX_NS}/PencilCase"
             pos = [0.5, 0.3, 0.037]
             rot = [1, 0, 0, 0]
@@ -53,6 +60,7 @@ class AiffelatorScenes:
 
         class Pen:
             usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/pen.usd"
+            name = "Pen"
             prim_path = "{ENV_REGEX_NS}/Pen"
             pos = [0.5, -0.3, 0.01]
             rot = [0.70711, 0.70711, 0, 0]
@@ -244,6 +252,16 @@ class AiffelatorScenes:
                 ),
             ],
         )
+    
+    @staticmethod
+    def place_position(name: str, device: torch.cuda.device) -> torch.Tensor:
+        if name == AiffelatorScenes.Place.PencilCase.name:
+            position = torch.tensor([AiffelatorScenes.Place.PencilCase.pos[0]], device=device)
+        elif name == AiffelatorScenes.Place.Pen.name:
+            position = torch.tensor([AiffelatorScenes.Place.Pen.pos[0]], device=device)
+        else:
+            raise ValueError(f"name({name}) is only [{AiffelatorScenes.Place.PencilCase.name}, {AiffelatorScenes.Place.Pen.name}]")
+        return position
     
     @staticmethod
     def default_environment():
