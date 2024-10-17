@@ -269,7 +269,7 @@ class AiffelatorScenes:
             AiffelatorScenes.ground_plane(), 
             AiffelatorScenes.light(),
             AiffelatorScenes.table(),
-            #AiffelatorScenes.bookcase()
+            AiffelatorScenes.bookcase()
         )
     
     @staticmethod
