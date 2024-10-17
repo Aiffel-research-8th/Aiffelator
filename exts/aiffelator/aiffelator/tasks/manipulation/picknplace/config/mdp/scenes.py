@@ -15,7 +15,7 @@ class AiffelatorScenes:
 
     class Place:
         class Pen:
-            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/place_pen.usd"
+            usd_path = "omniverse://localhost/Projects/aiffelator/place_pen.usd"
             name = "place_pen"
             prim_path = "{ENV_REGEX_NS}/place_pen"
             pos = (0.03, -0.5, 0.01), (-0.65, -0.2, 0.075) # desk, bookcase
@@ -24,7 +24,7 @@ class AiffelatorScenes:
             pose_range = {"x": (-0.08, 0.03), "y": (-0.5, -0.35), "z": (0.01, 0.01)}
 
         class PencilCase:
-            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/place_pencil_case.usd"
+            usd_path = "omniverse://localhost/Projects/aiffelator/place_pencil_case.usd"
             name = "place_pencil_case"
             prim_path = "{ENV_REGEX_NS}/place_pencil_case"
             pos = (0.03, 0.5, 0.01), (-0.65, 0.2,0.415) # desk, bookcase
@@ -41,7 +41,7 @@ class AiffelatorScenes:
         scale = (1.5, 1.0, 1.0)
     
     class Bookcase:
-        usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/bookcase.usd"
+        usd_path = "omniverse://localhost/NVIDIA/Assets/ArchVis/Commercial/Storage/WhiteHome02.usd"
         name = "Bookcase"
         prim_path = "{ENV_REGEX_NS}/Bookcase"
         pos = [-0.7, 0, -1.05]
@@ -50,7 +50,7 @@ class AiffelatorScenes:
 
     class Object:
         class PencilCase:
-            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/pencil_case.usd"
+            usd_path = "omniverse://localhost/Projects/aiffelator/pencil_case.usd"
             name = "PencilCase"
             prim_path = "{ENV_REGEX_NS}/PencilCase"
             pos = [0.5, 0.3, 0.037]
@@ -59,7 +59,7 @@ class AiffelatorScenes:
             pose_range = {"x": (0.32, 0.45), "y": (0.18, 0.45), "z": (0.037, 0.037)}
 
         class Pen:
-            usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/pen.usd"
+            usd_path = "omniverse://localhost/Projects/aiffelator/pen.usd"
             name = "Pen"
             prim_path = "{ENV_REGEX_NS}/Pen"
             pos = [0.5, -0.3, 0.01]
