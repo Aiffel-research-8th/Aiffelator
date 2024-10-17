@@ -33,7 +33,7 @@ class AiffelatorScenes:
             pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
 
     class Table:
-        usd_path = "{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd"
+        usd_path = "omniverse://localhost/NVIDIA/Assets/Isaac/4.1/Isaac/Props/Mounts/SeattleLabTable/table_instanceable.usd"
         name = "Table"
         prim_path = "{ENV_REGEX_NS}/Table"
         pos = [0.5, 0, 0]
