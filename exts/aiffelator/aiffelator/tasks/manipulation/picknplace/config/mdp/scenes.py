@@ -33,7 +33,7 @@ class AiffelatorScenes:
             pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
 
     class Table:
-        usd_path = "exts/aiffelator/aiffelator/tasks/manipulation/picknplace/env/table.usd"
+        usd_path = "{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd"
         name = "Table"
         prim_path = "{ENV_REGEX_NS}/Table"
         pos = [0.5, 0, 0]
@@ -265,10 +265,12 @@ class AiffelatorScenes:
     
     @staticmethod
     def default_environment():
-        return (AiffelatorScenes.ground_plane(), 
-                AiffelatorScenes.light(),
-                AiffelatorScenes.table(),
-                AiffelatorScenes.bookcase())
+        return (
+            AiffelatorScenes.ground_plane(), 
+            AiffelatorScenes.light(),
+            AiffelatorScenes.table(),
+            #AiffelatorScenes.bookcase()
+        )
     
     @staticmethod
     def camera_set():
