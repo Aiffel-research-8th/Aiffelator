@@ -18,8 +18,8 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_pen.usd"
             name = "place_pen"
             prim_path = "{ENV_REGEX_NS}/place_pen"
-            pos = (0.03, -0.5, 0.01), (-0.65, -0.2, 0.075) # desk, bookcase
-            rot = [0, 0, 0, 0]
+            pos = (0.03, -0.5, 0.01-0.008), (-0.65, -0.2, 0.075) # desk, bookcase
+            rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (-0.5, -0.35), "z": (0.01, 0.01)}
 
@@ -27,8 +27,8 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_pencil_case.usd"
             name = "place_pencil_case"
             prim_path = "{ENV_REGEX_NS}/place_pencil_case"
-            pos = (0.03, 0.5, 0.01), (-0.65, 0.2,0.415) # desk, bookcase
-            rot = [0, 0, 0, 0]
+            pos = (0.03, 0.5, 0.01-0.008), (-0.65, 0.2,0.415) # desk, bookcase
+            rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
 
@@ -53,19 +53,19 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/pencil_case.usd"
             name = "PencilCase"
             prim_path = "{ENV_REGEX_NS}/PencilCase"
-            pos = [0.5, 0.3, 0.037]
+            pos = [0.5-0.01688, 0.3-0.01688, 0.037+0.01997-0.05835]
             rot = [1, 0, 0, 0]
-            scale = (0.001, 0.001, 0.001)
-            pose_range = {"x": (0.32, 0.45), "y": (0.18, 0.45), "z": (0.037, 0.037)}
+            scale = (1.0, 1.0, 1.0) #(0.001, 0.001, 0.001)
+            pose_range = {"x": (-0.1, 0.0), "y": (-0.1, 0.1), "z": (0.0, 0.0)}
 
         class Pen:
             usd_path = "omniverse://localhost/Projects/aiffelator/pen.usd"
             name = "Pen"
             prim_path = "{ENV_REGEX_NS}/Pen"
-            pos = [0.5, -0.3, 0.01]
+            pos = [0.5-0.03927, -0.3-0.0084, 0.01-0.0336]
             rot = [0.70711, 0.70711, 0, 0]
-            scale = (0.001, 0.001, 0.001)
-            pose_range = {"x": (0.32, 0.45), "y": (-0.45, -0.18), "z": (0.01, 0.01)}
+            scale = (1.0, 1.0, 1.0) #(0.001, 0.001, 0.001)
+            pose_range = {"x": (-0.1, 0.0), "y": (-0.1, 0.1), "z": (0.0, 0.0)}
 
     @staticmethod
     def ground_plane() -> AssetBaseCfg:

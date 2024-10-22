@@ -90,18 +90,17 @@ def multi_object_reached_goal_place(
     place_cfgs: list[SceneEntityCfg] = [SceneEntityCfg("place")]
 ) -> torch.Tensor:
     
-    all_is_reached = []
+    all_result = torch.tensor(True, device=env.device)
 
     for object, place in zip(object_cfgs, place_cfgs):
-        all_is_reached.append(
-            is_reached(
-                env=env, 
-                threshold=threshold, 
-                robot_cfg=robot_cfg, 
-                object_cfg=object, 
-                place_cfg=place
-            )
+        result = is_reached(
+            env=env, 
+            threshold=threshold, 
+            robot_cfg=robot_cfg, 
+            object_cfg=object, 
+            place_cfg=place
         )
+        all_result = all_result & result
 
     # rewarded if the object is lifted above the threshold
-    return all(all_is_reached)
+    return all_result
