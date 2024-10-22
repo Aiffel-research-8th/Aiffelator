@@ -77,13 +77,23 @@ class SingleObjectRewardsCfg:
 class MultiObjectRewardsCfg:
     """Reward terms for the MDP."""
     # (1) reaching to the object
-    reaching_object = RewTerm(
+    reaching_pencil_case = RewTerm(
         func=mdp.object_ee_distance, 
         params={
             "std": 0.1,
             "object_cfg": SceneEntityCfg("pencil_case"),
             "ee_frame_cfg": SceneEntityCfg("ee_frame")
         }, 
+        weight=1.0
+    )
+
+    reaching_pen = RewTerm(
+        func=mdp.object_ee_distance,
+        params={
+            "std": 0.1,
+            "object_cfg": SceneEntityCfg("pen"),
+            "ee_frame_cfg": SceneEntityCfg("ee_frame")
+        },
         weight=1.0
     )
 

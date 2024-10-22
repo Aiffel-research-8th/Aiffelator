@@ -55,7 +55,7 @@ class AiffelatorScenes:
             prim_path = "{ENV_REGEX_NS}/PencilCase"
             pos = [0.5, 0.3, 0.037]
             rot = [1, 0, 0, 0]
-            scale = (0.002, 0.002, 0.002)
+            scale = (0.001, 0.001, 0.001)
             pose_range = {"x": (0.32, 0.45), "y": (0.18, 0.45), "z": (0.037, 0.037)}
 
         class Pen:
@@ -254,22 +254,22 @@ class AiffelatorScenes:
         )
     
     @staticmethod
-    def place_position(name: str, device: torch.cuda.device) -> torch.Tensor:
+    def place_position(name: str, num_envs: int, device: torch.cuda.device) -> torch.Tensor:
         if name == AiffelatorScenes.Place.PencilCase.name:
             position = torch.tensor([AiffelatorScenes.Place.PencilCase.pos[0]], device=device)
         elif name == AiffelatorScenes.Place.Pen.name:
             position = torch.tensor([AiffelatorScenes.Place.Pen.pos[0]], device=device)
         else:
             raise ValueError(f"name({name}) is only [{AiffelatorScenes.Place.PencilCase.name}, {AiffelatorScenes.Place.Pen.name}]")
-        return position
+        return position.repeat(num_envs, 1)
     
     @staticmethod
     def default_environment():
         return (
             AiffelatorScenes.ground_plane(), 
             AiffelatorScenes.light(),
-            AiffelatorScenes.table(),
-            AiffelatorScenes.bookcase()
+            AiffelatorScenes.table()
+            #AiffelatorScenes.bookcase()
         )
     
     @staticmethod

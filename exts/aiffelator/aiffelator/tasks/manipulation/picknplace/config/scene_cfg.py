@@ -7,7 +7,7 @@ from .mdp import AiffelatorScenes
 class DeskSingleObjectSceneCfg(InteractiveSceneCfg):
 
     # default env
-    plane, light, table, bookcase = AiffelatorScenes.default_environment()
+    plane, light, table = AiffelatorScenes.default_environment()
     # camera set
     # front_camera, right_camera = AiffelatorScenes.camera_set()
     # manipulator
@@ -19,9 +19,9 @@ class DeskSingleObjectSceneCfg(InteractiveSceneCfg):
 class DeskMultiObjectSceneCfg(InteractiveSceneCfg):
 
     # default env
-    plane, light, table, bookcase = AiffelatorScenes.default_environment()
+    plane, light, table = AiffelatorScenes.default_environment()
     # camera set
-    front_camera, right_camera = AiffelatorScenes.camera_set()
+    #front_camera, right_camera = AiffelatorScenes.camera_set()
     # manipulator
     robot, ee_frame = AiffelatorScenes.manipulator()
     # pencil_case set
@@ -33,7 +33,7 @@ class DeskMultiObjectSceneCfg(InteractiveSceneCfg):
 class BookcaseMultiObjectSceneCfg(InteractiveSceneCfg):
 
     # default env
-    plane, light, table, bookcase = AiffelatorScenes.default_environment()
+    plane, light, table = AiffelatorScenes.default_environment()
     # camera set
     front_camera, right_camera = AiffelatorScenes.camera_set()
     # manipulator

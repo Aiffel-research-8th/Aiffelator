@@ -12,14 +12,13 @@ from .config.event_cfg import SingleObjectEventCfg, MultiObjectEventCfg
 
 @configclass
 class SingleObjectPickAndPlaceEnvCfg_V0(ManagerBasedRLEnvCfg):
-    # TODO 전체 Term Module 등록
 
     # MDP settings
-    scene: DeskSingleObjectSceneCfg = DeskSingleObjectSceneCfg(num_envs=32, env_spacing=3)
+    scene: DeskSingleObjectSceneCfg = DeskSingleObjectSceneCfg(num_envs=4096, env_spacing=3)
     observations: DeskSingleObjectObservationsCfg = DeskSingleObjectObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     commands: SingleObjectCommandsCfg = SingleObjectCommandsCfg()
-    resets: SingleObjectEventCfg = SingleObjectEventCfg()
+    events: SingleObjectEventCfg = SingleObjectEventCfg()
     
     rewards: SingleObjectRewardsCfg = SingleObjectRewardsCfg()
     terminations: SingleObjectTerminationsCfg = SingleObjectTerminationsCfg()
@@ -28,7 +27,7 @@ class SingleObjectPickAndPlaceEnvCfg_V0(ManagerBasedRLEnvCfg):
         """Post initialization."""
         # general settings
         self.decimation = 2
-        self.episode_length_s = 10.0
+        self.episode_length_s = 5.0
         # simulation settings
         self.sim.dt = 0.01  # 100Hz
         self.sim.render_interval = self.decimation
@@ -45,7 +44,7 @@ class SingleObjectPickAndPlaceEnvCfg_V0_PLAY(SingleObjectPickAndPlaceEnvCfg_V0):
         # post init of parent
         super().__post_init__()
         # make a smaller scene for play
-        self.scene.num_envs = 16
+        self.scene.num_envs = 32
         self.scene.env_spacing = 3
         # disable randomization for play
         self.observations.policy.enable_corruption = False
@@ -53,11 +52,11 @@ class SingleObjectPickAndPlaceEnvCfg_V0_PLAY(SingleObjectPickAndPlaceEnvCfg_V0):
 @configclass
 class MultiObjectPickAndPlaceEvnCfg_V0(ManagerBasedRLEnvCfg):
     
-    scene: DeskMultiObjectSceneCfg = DeskMultiObjectSceneCfg(num_envs=32, env_spacing=3)
+    scene: DeskMultiObjectSceneCfg = DeskMultiObjectSceneCfg(num_envs=4096, env_spacing=3)
     observations: DeskMultiObjectObservationsCfg = DeskMultiObjectObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
     commands: MultiObjectCommandsCfg = MultiObjectCommandsCfg()
-    resets: MultiObjectEventCfg = MultiObjectEventCfg()
+    events: MultiObjectEventCfg = MultiObjectEventCfg()
 
     rewards: MultiObjectRewardsCfg = MultiObjectRewardsCfg()
     terminations: MultiObjectTerminationsCfg = MultiObjectTerminationsCfg()
@@ -65,7 +64,7 @@ class MultiObjectPickAndPlaceEvnCfg_V0(ManagerBasedRLEnvCfg):
     def __post_init__(self):
 
         self.decimation = 2
-        self.episode_length_s = 15.0 # multi pick and place 고려
+        self.episode_length_s = 15.0 # multi pick and place
 
         self.sim.dt = 0.01  # 100Hz
         self.sim.render_interval = self.decimation
@@ -82,7 +81,7 @@ class MultiObjectPickAndPlaceEvnCfg_V0_PLAY(MultiObjectPickAndPlaceEvnCfg_V0):
         # post init of parent
         super().__post_init__()
         # make a smaller scene for play
-        self.scene.num_envs = 16
+        self.scene.num_envs = 32
         self.scene.env_spacing = 3
         # disable randomization for play
         self.observations.policy.enable_corruption = False

@@ -46,5 +46,5 @@ def last_action(env: ManagerBasedEnv, action_name: str | None = None) -> torch.T
 def get_prim_position(env: ManagerBasedEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     prim: RigidObject = env.scene[asset_cfg.name]
     position = prim.data.root_state_w[:, :3]
-    position = AiffelatorScenes.place_position(name=asset_cfg.name, device=position.device)
+    position = AiffelatorScenes.place_position(name=asset_cfg.name, num_envs=env.num_envs, device=position.device)
     return position

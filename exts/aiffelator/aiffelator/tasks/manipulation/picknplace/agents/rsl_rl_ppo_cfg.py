@@ -7,7 +7,7 @@ from omni.isaac.lab_tasks.utils.wrappers.rsl_rl import (
 
 @configclass
 class SingleTablePickAndPlacePPORunnerCfg(RslRlOnPolicyRunnerCfg):
-    # TODO PPO Agent 구현
+    seed = 42
     num_steps_per_env = 24
     max_iterations = 1500
     save_interval = 50
@@ -36,7 +36,7 @@ class SingleTablePickAndPlacePPORunnerCfg(RslRlOnPolicyRunnerCfg):
     
 @configclass
 class MultiObjectPickAndPlacePPORunnerCfg(RslRlOnPolicyRunnerCfg):
-    # TODO PPO Agent 구현
+    seed = 42
     num_steps_per_env = 24
     max_iterations = 1500
     save_interval = 50
