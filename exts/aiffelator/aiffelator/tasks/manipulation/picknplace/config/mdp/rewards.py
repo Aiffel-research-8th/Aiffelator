@@ -93,3 +93,34 @@ def drop_objects(env: ManagerBasedRLEnv, object_cfgs: list[SceneEntityCfg]) -> t
         is_dropped = object.data.root_pos_w[:, 2] < -0.05
         result = result + (is_dropped * rate)
     return -result
+
+def get_distance(env, robot_cfg, object_cfg, place_cfg):
+    robot: RigidObject = env.scene[robot_cfg.name]
+    object: RigidObject = env.scene[object_cfg.name]
+    # compute the desired position in the world frame
+    des_pos_b = AiffelatorScenes.place_position(name=place_cfg.name, num_envs=env.num_envs, device=object.device)
+    des_pos_w, _ = combine_frame_transforms(robot.data.root_state_w[:, :3], robot.data.root_state_w[:, 3:7], des_pos_b)
+    # distance of the end-effector to the object: (num_envs,)
+    return torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
+
+def complete_task(
+    env: ManagerBasedRLEnv,
+    threshold: float,
+    robot_cfg: SceneEntityCfg,
+    object_cfgs: list[SceneEntityCfg],
+    place_cfgs: list[SceneEntityCfg]
+) -> torch.Tensor:
+    
+    result = torch.full((env.num_envs,), 0.0, device=env.device)
+
+    for object, place in zip(object_cfgs, place_cfgs):
+        distance = get_distance(
+            env=env,
+            robot_cfg=robot_cfg,
+            object_cfg=object,
+            place_cfg=place
+        )
+        diff = threshold - distance
+        result += diff if diff > 0 else 0
+
+    return result / (threshold * len(object_cfgs))
