@@ -3,6 +3,7 @@ from omni.isaac.lab.managers import SceneEntityCfg
 from omni.isaac.lab.utils import configclass
 
 from . import mdp
+from .mdp import AiffelatorScenes
 
 # specific to this task and env: object_ee_distance, object_is_lifted, object_goal_distance
 # Common to all tasks: action_rate_l2, joint_vel_l2
@@ -16,7 +17,7 @@ class SingleObjectRewardsCfg:
         func=mdp.object_ee_distance, 
         params={
             "std": 0.1,
-            "object_cfg": SceneEntityCfg("pencil_case"),
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "ee_frame_cfg": SceneEntityCfg("ee_frame")
         }, 
         weight=1.0
@@ -28,7 +29,7 @@ class SingleObjectRewardsCfg:
         func=mdp.object_is_lifted, 
         params={
             "minimal_height": 0.04,
-            "object_cfg": SceneEntityCfg("pencil_case")
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get()
         }, 
         weight=15.0
     )
@@ -40,8 +41,8 @@ class SingleObjectRewardsCfg:
             "std": 0.3, 
             "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
-            "object_cfg": SceneEntityCfg("pencil_case"),
-            "place_cfg": SceneEntityCfg("place_pencil_case")
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
+            "place_cfg": AiffelatorScenes.Place.PencilCase.get()
         },
         weight=16.0,
     )
@@ -52,8 +53,8 @@ class SingleObjectRewardsCfg:
             "std": 0.3, 
             "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
-            "object_cfg": SceneEntityCfg("pencil_case"),
-            "place_cfg": SceneEntityCfg("place_pencil_case")
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
+            "place_cfg": AiffelatorScenes.Place.PencilCase.get()
         },
         weight=5.0,
     )
@@ -64,13 +65,13 @@ class SingleObjectRewardsCfg:
     # # TODO
     # Action penalty
     # # penalize the rate of change of the actions using L2 squared kernel.
-    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
+    # action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
     # # slower joint velocity
-    joint_vel = RewTerm(
-        func=mdp.joint_vel_l2,
-        weight=-1e-4,
-        params={"asset_cfg": SceneEntityCfg("robot")},
-    )
+    # joint_vel = RewTerm(
+    #     func=mdp.joint_vel_l2,
+    #     weight=-1e-4,
+    #     params={"asset_cfg": SceneEntityCfg("robot")},
+    # )
 
 
 @configclass
@@ -81,7 +82,7 @@ class MultiObjectRewardsCfg:
         func=mdp.object_ee_distance, 
         params={
             "std": 0.1,
-            "object_cfg": SceneEntityCfg("pencil_case"),
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "ee_frame_cfg": SceneEntityCfg("ee_frame")
         }, 
         weight=1.0
@@ -91,7 +92,7 @@ class MultiObjectRewardsCfg:
         func=mdp.object_ee_distance,
         params={
             "std": 0.1,
-            "object_cfg": SceneEntityCfg("pen"),
+            "object_cfg": AiffelatorScenes.Object.Pen.get(),
             "ee_frame_cfg": SceneEntityCfg("ee_frame")
         },
         weight=1.0
@@ -103,7 +104,7 @@ class MultiObjectRewardsCfg:
         func=mdp.object_is_lifted, 
         params={
             "minimal_height": 0.04,
-            "object_cfg": SceneEntityCfg("pencil_case")
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get()
         }, 
         weight=15.0
     )
@@ -111,7 +112,7 @@ class MultiObjectRewardsCfg:
         func=mdp.object_is_lifted, 
         params={
             "minimal_height": 0.04,
-            "object_cfg": SceneEntityCfg("pen")
+            "object_cfg": AiffelatorScenes.Object.Pen.get()
         }, 
         weight=15.0
     )
@@ -123,8 +124,8 @@ class MultiObjectRewardsCfg:
             "std": 0.3, 
             "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
-            "object_cfg": SceneEntityCfg("pencil_case"),
-            "place_cfg": SceneEntityCfg("place_pencil_case")
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
+            "place_cfg": AiffelatorScenes.Place.PencilCase.get()
         },
         weight=16.0,
     )
@@ -135,8 +136,8 @@ class MultiObjectRewardsCfg:
             "std": 0.3, 
             "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
-            "object_cfg": SceneEntityCfg("pencil_case"),
-            "place_cfg": SceneEntityCfg("place_pencil_case")
+            "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
+            "place_cfg": AiffelatorScenes.Place.PencilCase.get()
         },
         weight=5.0,
     )
@@ -147,8 +148,8 @@ class MultiObjectRewardsCfg:
             "std": 0.3, 
             "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
-            "object_cfg": SceneEntityCfg("pen"),
-            "place_cfg": SceneEntityCfg("place_pen")
+            "object_cfg": AiffelatorScenes.Object.Pen.get(),
+            "place_cfg": AiffelatorScenes.Place.Pen.get()
         },
         weight=16.0,
     )
@@ -159,8 +160,8 @@ class MultiObjectRewardsCfg:
             "std": 0.3, 
             "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
-            "object_cfg": SceneEntityCfg("pen"),
-            "place_cfg": SceneEntityCfg("place_pen")
+            "object_cfg": AiffelatorScenes.Object.Pen.get(),
+            "place_cfg": AiffelatorScenes.Place.Pen.get()
         },
         weight=5.0,
     )
@@ -171,13 +172,13 @@ class MultiObjectRewardsCfg:
     # # dropping object
     # # TODO
     # Action penalty
-    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
+    # action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
 
-    joint_vel = RewTerm(
-        func=mdp.joint_vel_l2,
-        weight=-1e-4,
-        params={"asset_cfg": SceneEntityCfg("robot")},
-    )
+    # joint_vel = RewTerm(
+    #     func=mdp.joint_vel_l2,
+    #     weight=-1e-4,
+    #     params={"asset_cfg": SceneEntityCfg("robot")},
+    # )
 
 
 @configclass

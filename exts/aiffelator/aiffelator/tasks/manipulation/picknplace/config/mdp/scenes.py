@@ -10,6 +10,7 @@ from omni.isaac.lab_assets.franka import FRANKA_PANDA_CFG
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import FrameTransformerCfg
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from omni.isaac.lab.sensors import CameraCfg
+from omni.isaac.lab.managers import SceneEntityCfg
 
 class AiffelatorScenes:
 
@@ -22,6 +23,10 @@ class AiffelatorScenes:
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (-0.5, -0.35), "z": (0.01, 0.01)}
+            
+            @staticmethod
+            def get():
+                return SceneEntityCfg("place_pen")
 
         class PencilCase:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_pencil_case.usd"
@@ -31,6 +36,10 @@ class AiffelatorScenes:
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
+            
+            @staticmethod
+            def get():
+                return SceneEntityCfg("place_pencil_case")
 
     class Table:
         usd_path = "omniverse://localhost/NVIDIA/Assets/Isaac/4.1/Isaac/Props/Mounts/SeattleLabTable/table_instanceable.usd"
@@ -57,6 +66,10 @@ class AiffelatorScenes:
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0) #(0.001, 0.001, 0.001)
             pose_range = {"x": (-0.1, 0.0), "y": (-0.1, 0.1), "z": (0.0, 0.0)}
+            
+            @staticmethod
+            def get():
+                return SceneEntityCfg("pencil_case", body_names="mesh")
 
         class Pen:
             usd_path = "omniverse://localhost/Projects/aiffelator/pen.usd"
@@ -66,6 +79,10 @@ class AiffelatorScenes:
             rot = [0.70711, 0.70711, 0, 0]
             scale = (1.0, 1.0, 1.0) #(0.001, 0.001, 0.001)
             pose_range = {"x": (-0.1, 0.0), "y": (-0.1, 0.1), "z": (0.0, 0.0)}
+            
+            @staticmethod
+            def get():
+                return SceneEntityCfg("pen", body_names="mesh")
 
     @staticmethod
     def ground_plane() -> AssetBaseCfg:

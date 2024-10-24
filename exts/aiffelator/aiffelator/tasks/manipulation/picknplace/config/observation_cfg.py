@@ -4,6 +4,7 @@ from omni.isaac.lab.managers import ObservationTermCfg as ObsTerm
 from omni.isaac.lab.managers import SceneEntityCfg
 
 from . import mdp
+from .mdp import AiffelatorScenes
 
 @configclass
 class DeskSingleObjectObservationsCfg:
@@ -17,12 +18,12 @@ class DeskSingleObjectObservationsCfg:
             func=mdp.object_position_in_robot_root_frame, 
             params={
                 "robot_cfg": SceneEntityCfg("robot"),
-                "object_cfg": SceneEntityCfg("pencil_case")
+                "object_cfg": AiffelatorScenes.Object.PencilCase.get()
             }
         )
         place_pencil_case_position = ObsTerm(
             func=mdp.get_prim_position,
-            params={"asset_cfg": SceneEntityCfg("place_pencil_case")}
+            params={"asset_cfg": AiffelatorScenes.Place.PencilCase.get()}
         )
         actions = ObsTerm(func=mdp.last_action)
 
@@ -44,22 +45,22 @@ class DeskMultiObjectObservationsCfg:
         pencil_case_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "object_cfg": SceneEntityCfg("pencil_case")
+                "object_cfg": AiffelatorScenes.Object.PencilCase.get()
             }
         )
         pen_position = ObsTerm(
             func=mdp.object_position_in_robot_root_frame, 
             params={
-                "object_cfg": SceneEntityCfg("pen")
+                "object_cfg": AiffelatorScenes.Object.Pen.get()
             }
         )
         place_pencil_case_position = ObsTerm(
             func=mdp.get_prim_position,
-            params={"asset_cfg": SceneEntityCfg("place_pencil_case")}
+            params={"asset_cfg": AiffelatorScenes.Place.PencilCase.get()}
         )
         place_pen_position = ObsTerm(
             func=mdp.get_prim_position,
-            params={"asset_cfg": SceneEntityCfg("place_pen")}
+            params={"asset_cfg": AiffelatorScenes.Place.Pen.get()}
         )
         actions = ObsTerm(func=mdp.last_action)
 
