@@ -43,7 +43,7 @@ class AiffelatorScenes:
             
         class Cube:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_cube.usd"
-            pos = (0.03, -0.5, 0.8), (0.03, 0.5, 0.8) # pen, pencil_case
+            pos = (0.03, -0.5, 0.08), (0.03, 0.5, 0.08) # pen, pencil_case
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
 
