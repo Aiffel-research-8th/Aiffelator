@@ -191,7 +191,7 @@ class MultiObjectRewardsCfg:
     completed_task = RewTerm( 
         func=mdp.complete_task,
         params={
-            "threshold": 0.02,
+            "threshold": 0.1,
             "robot_cfg": SceneEntityCfg("robot"),
             "object_cfgs": [
                 AiffelatorScenes.Object.PencilCase.get(), 
