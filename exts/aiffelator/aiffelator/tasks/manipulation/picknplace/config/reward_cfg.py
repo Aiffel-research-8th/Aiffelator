@@ -103,7 +103,7 @@ class MultiObjectRewardsCfg:
     lifting_pencil_case = RewTerm(
         func=mdp.object_is_lifted, 
         params={
-            "minimal_height": 0.04,
+            "minimal_height": 0.2,
             "object_cfg": AiffelatorScenes.Object.PencilCase.get()
         }, 
         weight=15.0
@@ -111,7 +111,7 @@ class MultiObjectRewardsCfg:
     lifting_pen = RewTerm(
         func=mdp.object_is_lifted, 
         params={
-            "minimal_height": 0.04,
+            "minimal_height": 0.2,
             "object_cfg": AiffelatorScenes.Object.Pen.get()
         }, 
         weight=15.0
@@ -179,6 +179,14 @@ class MultiObjectRewardsCfg:
     #     weight=-1e-4,
     #     params={"asset_cfg": SceneEntityCfg("robot")},
     # )
+    
+    dropped_objects = RewTerm(
+        func=mdp.drop_objects,
+        params={
+            "object_cfgs": [ AiffelatorScenes.Object.PencilCase.get(), AiffelatorScenes.Object.Pen.get() ]
+        },
+        weight=16.0,
+    )
 
 
 @configclass

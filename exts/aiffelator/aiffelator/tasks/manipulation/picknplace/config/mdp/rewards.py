@@ -84,3 +84,12 @@ def object_goal_place_distance(
     distance = torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
     # rewarded if the object is lifted above the threshold
     return (object.data.root_pos_w[:, 2] > minimal_height) * (1 - torch.tanh(distance / std))
+
+def drop_objects(env: ManagerBasedRLEnv, object_cfgs: list[SceneEntityCfg]) -> torch.Tensor:
+    result = torch.tensor(0.0, device=env.device)
+    rate = 1/len(object_cfgs)
+    for object_cfg in object_cfgs:
+        object: RigidObject = env.scene[object_cfg.name]
+        is_dropped = object.data.root_pos_w[:, 2] < -0.05
+        result = result + (is_dropped * rate)
+    return -result

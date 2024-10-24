@@ -13,7 +13,7 @@ class DeskSingleObjectSceneCfg(InteractiveSceneCfg):
     # manipulator
     robot, ee_frame = AiffelatorScenes.manipulator()
     # pencil_case set
-    pencil_case, place_pencil_case = AiffelatorScenes.pencil_case_set("desk")
+    pencil_case, place_cube_pencil_case, place_pencil_case = AiffelatorScenes.pencil_case_set("desk")
 
 @configclass
 class DeskMultiObjectSceneCfg(InteractiveSceneCfg):
@@ -25,9 +25,9 @@ class DeskMultiObjectSceneCfg(InteractiveSceneCfg):
     # manipulator
     robot, ee_frame = AiffelatorScenes.manipulator()
     # pencil_case set
-    pencil_case, place_pencil_case = AiffelatorScenes.pencil_case_set("desk")
+    pencil_case, place_cube_pencil_case, place_pencil_case = AiffelatorScenes.pencil_case_set("desk")
     # pen set
-    pen, place_pen = AiffelatorScenes.pen_set("desk")
+    pen, place_cube_pen, place_pen = AiffelatorScenes.pen_set("desk")
     
 @configclass
 class BookcaseMultiObjectSceneCfg(InteractiveSceneCfg):
@@ -39,6 +39,6 @@ class BookcaseMultiObjectSceneCfg(InteractiveSceneCfg):
     # manipulator
     robot, ee_frame = AiffelatorScenes.manipulator()
     # pencil_case set
-    pencil_case, place_pencil_case = AiffelatorScenes.pencil_case_set("bookcase")
+    pencil_case, place_cube_pencil_case, place_pencil_case = AiffelatorScenes.pencil_case_set("bookcase")
     # pen set
-    pen, place_pen = AiffelatorScenes.pen_set("bookcase")
+    pen, place_cube_pen, place_pen = AiffelatorScenes.pen_set("bookcase")

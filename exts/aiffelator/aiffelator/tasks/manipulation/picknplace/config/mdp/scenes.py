@@ -19,7 +19,7 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_pen.usd"
             name = "place_pen"
             prim_path = "{ENV_REGEX_NS}/place_pen"
-            pos = (0.03, -0.5, 0.01-0.008), (-0.65, -0.2, 0.075) # desk, bookcase
+            pos = (0.03, -0.5, 0.165), (-0.65, -0.2, 0.075) # desk, bookcase
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (-0.5, -0.35), "z": (0.01, 0.01)}
@@ -32,7 +32,7 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_pencil_case.usd"
             name = "place_pencil_case"
             prim_path = "{ENV_REGEX_NS}/place_pencil_case"
-            pos = (0.03, 0.5, 0.01-0.008), (-0.65, 0.2,0.415) # desk, bookcase
+            pos = (0.03, 0.5, 0.165), (-0.65, 0.2,0.415) # desk, bookcase
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
@@ -40,6 +40,12 @@ class AiffelatorScenes:
             @staticmethod
             def get():
                 return SceneEntityCfg("place_pencil_case")
+            
+        class Cube:
+            usd_path = "omniverse://localhost/Projects/aiffelator/place_cube.usd"
+            pos = (0.03, -0.5, 0.8), (0.03, 0.5, 0.8) # pen, pencil_case
+            rot = [1, 0, 0, 0]
+            scale = (1.0, 1.0, 1.0)
 
     class Table:
         usd_path = "omniverse://localhost/NVIDIA/Assets/Isaac/4.1/Isaac/Props/Mounts/SeattleLabTable/table_instanceable.usd"
@@ -209,6 +215,28 @@ class AiffelatorScenes:
             ),
         ),
     )
+        
+    @staticmethod
+    def place_cube(type) -> RigidObjectCfg:
+        return RigidObjectCfg(
+            prim_path=f"{{ENV_REGEX_NS}}/place_cube_{type}",
+            init_state=RigidObjectCfg.InitialStateCfg(
+                pos=AiffelatorScenes.Place.Cube.pos[0 if type == "pen" else 1], 
+                rot=AiffelatorScenes.Place.Cube.rot
+            ),
+            spawn=sim_utils.UsdFileCfg(
+                usd_path=AiffelatorScenes.Place.Cube.usd_path,
+                scale=AiffelatorScenes.Place.Cube.scale,
+                rigid_props=RigidBodyPropertiesCfg(
+                    solver_position_iteration_count=16,
+                    solver_velocity_iteration_count=1,
+                    max_angular_velocity=1000.0,
+                    max_linear_velocity=1000.0,
+                    max_depenetration_velocity=5.0,
+                    disable_gravity=False,
+                ),
+            ),
+        )
 
     @staticmethod
     def place_pencil_case(pos: tuple[float, float, float]) -> RigidObjectCfg:
@@ -309,6 +337,7 @@ class AiffelatorScenes:
             raise ValueError("type is only desk or bookcase")
         pos = AiffelatorScenes.Place.PencilCase.pos[place]
         return (AiffelatorScenes.pencil_case(),
+                AiffelatorScenes.place_cube("pencil_case"),
                 AiffelatorScenes.place_pencil_case(pos))
     
     @staticmethod
@@ -321,4 +350,5 @@ class AiffelatorScenes:
             raise ValueError("type is only desk or bookcase")
         pos = AiffelatorScenes.Place.Pen.pos[place]
         return (AiffelatorScenes.pen(),
+                AiffelatorScenes.place_cube("pen"),
                 AiffelatorScenes.place_pen(pos))
