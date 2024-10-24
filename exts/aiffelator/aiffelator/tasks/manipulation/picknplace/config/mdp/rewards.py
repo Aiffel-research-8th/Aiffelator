@@ -121,6 +121,6 @@ def complete_task(
             place_cfg=place
         )
         diff = threshold - distance
-        result += diff if diff > 0 else 0
+        result += torch.where(diff > 0, diff, 0.0)
 
     return result / (threshold * len(object_cfgs))
