@@ -112,7 +112,7 @@ def complete_task(
 ) -> torch.Tensor:
     
     result = torch.full((env.num_envs,), 0.0, device=env.device)
-
+    goal_in = torch.full((env.num_envs,), True, device=env.device)
     for object, place in zip(object_cfgs, place_cfgs):
         distance = get_distance(
             env=env,
@@ -121,9 +121,11 @@ def complete_task(
             place_cfg=place
         )
         diff = threshold - distance
+        goal_in &= diff > 0
         result += torch.where(diff > 0, diff, 0.0)
-
-    return result / (threshold * len(object_cfgs))
+    each_reward = result / (threshold * len(object_cfgs))
+    all_goal_in_reward = goal_in * 2
+    return each_reward + all_goal_in_reward
 
 def collision_place_cube(env: ManagerBasedRLEnv) -> torch.Tensor:
     place_cube_pencil_case_cfg = AiffelatorScenes.Place.Cube.get("pencil_case")
