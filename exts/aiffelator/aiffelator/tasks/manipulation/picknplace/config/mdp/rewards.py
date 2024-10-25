@@ -92,7 +92,7 @@ def drop_objects(env: ManagerBasedRLEnv, object_cfgs: list[SceneEntityCfg]) -> t
         object: RigidObject = env.scene[object_cfg.name]
         is_dropped = object.data.root_pos_w[:, 2] < -0.05
         result = result + (is_dropped * rate)
-    return -result
+    return result
 
 def get_distance(env, robot_cfg, object_cfg, place_cfg):
     robot: RigidObject = env.scene[robot_cfg.name]
@@ -124,3 +124,14 @@ def complete_task(
         result += torch.where(diff > 0, diff, 0.0)
 
     return result / (threshold * len(object_cfgs))
+
+def collision_place_cube(env: ManagerBasedRLEnv) -> torch.Tensor:
+    place_cube_pencil_case_cfg = AiffelatorScenes.Place.Cube.get("pencil_case")
+    place_cube_pencil_case: RigidObject = env.scene[place_cube_pencil_case_cfg.name]
+    pencil_case_cube_distance = torch.norm(torch.tensor(AiffelatorScenes.Place.Cube.pos[1], device=env.device) - place_cube_pencil_case.data.root_pos_w[:, :3], dim=1)
+    
+    place_cube_pen_cfg = AiffelatorScenes.Place.Cube.get("pen")
+    place_cube_pen: RigidObject = env.scene[place_cube_pen_cfg.name]
+    pen_cube_distance = torch.norm(torch.tensor(AiffelatorScenes.Place.Cube.pos[0], device=env.device) - place_cube_pen.data.root_pos_w[:, :3], dim=1)
+
+    return torch.abs(torch.tanh(pencil_case_cube_distance)) + torch.abs(torch.tanh(pen_cube_distance)) # 0이 아닌 경우에는 패널티

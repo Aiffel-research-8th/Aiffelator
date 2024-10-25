@@ -19,7 +19,7 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_pen.usd"
             name = "place_pen"
             prim_path = "{ENV_REGEX_NS}/place_pen"
-            pos = (0.03, -0.5, 0.165), (-0.65, -0.2, 0.075) # desk, bookcase
+            pos = (0.03, -0.5, 0.085), (-0.65, -0.2, 0.075) # desk, bookcase
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (-0.5, -0.35), "z": (0.01, 0.01)}
@@ -32,7 +32,7 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_pencil_case.usd"
             name = "place_pencil_case"
             prim_path = "{ENV_REGEX_NS}/place_pencil_case"
-            pos = (0.03, 0.5, 0.165), (-0.65, 0.2,0.415) # desk, bookcase
+            pos = (0.03, 0.5, 0.085), (-0.65, 0.2,0.415) # desk, bookcase
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
             pose_range = {"x": (-0.08, 0.03), "y": (0.35, 0.5), "z": (0.01, 0.01)}
@@ -43,9 +43,16 @@ class AiffelatorScenes:
             
         class Cube:
             usd_path = "omniverse://localhost/Projects/aiffelator/place_cube.usd"
-            pos = (0.03, -0.5, 0.08), (0.03, 0.5, 0.08) # pen, pencil_case
+            pos = (0.03, -0.5, 0.04), (0.03, 0.5, 0.04) # pen, pencil_case
             rot = [1, 0, 0, 0]
             scale = (1.0, 1.0, 1.0)
+            
+            @staticmethod
+            def get(type):
+                if type == "pen":
+                    return SceneEntityCfg("place_cube_pencil_case", body_names="Cube")
+                else:
+                    return SceneEntityCfg("place_cube_pen", body_names="Cube")
 
     class Table:
         usd_path = "omniverse://localhost/NVIDIA/Assets/Isaac/4.1/Isaac/Props/Mounts/SeattleLabTable/table_instanceable.usd"

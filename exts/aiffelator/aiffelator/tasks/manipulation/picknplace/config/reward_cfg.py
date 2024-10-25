@@ -166,6 +166,23 @@ class MultiObjectRewardsCfg:
         weight=5.0,
     )
     
+    completed_task = RewTerm( 
+        func=mdp.complete_task,
+        params={
+            "threshold": 0.1,
+            "robot_cfg": SceneEntityCfg("robot"),
+            "object_cfgs": [
+                AiffelatorScenes.Object.PencilCase.get(), 
+                AiffelatorScenes.Object.Pen.get()
+            ],
+            "place_cfgs": [
+                AiffelatorScenes.Place.PencilCase.get(), 
+                AiffelatorScenes.Place.Pen.get()
+            ]
+        },
+        weight=32.0,
+    )
+    
     # Failure penalty
     # # object is out of limits
     # # TODO
@@ -185,26 +202,10 @@ class MultiObjectRewardsCfg:
         params={
             "object_cfgs": [ AiffelatorScenes.Object.PencilCase.get(), AiffelatorScenes.Object.Pen.get() ]
         },
-        weight=16.0,
+        weight=-2.0,
     )
     
-    completed_task = RewTerm( 
-        func=mdp.complete_task,
-        params={
-            "threshold": 0.1,
-            "robot_cfg": SceneEntityCfg("robot"),
-            "object_cfgs": [
-                AiffelatorScenes.Object.PencilCase.get(), 
-                AiffelatorScenes.Object.Pen.get()
-            ],
-            "place_cfgs": [
-                AiffelatorScenes.Place.PencilCase.get(), 
-                AiffelatorScenes.Place.Pen.get()
-            ]
-        },
-        weight=50.0,
-    )
-
+    collision_cube = RewTerm(func=mdp.collision_place_cube, weight=-2.0)
 
 @configclass
 class TableShelfMultiObjRewardsCfg:
