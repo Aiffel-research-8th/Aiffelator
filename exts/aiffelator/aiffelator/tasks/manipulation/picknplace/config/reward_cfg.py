@@ -208,7 +208,17 @@ class MultiObjectRewardsCfg:
             "history_size": 50,
             "penalty": -5.0,
             "position_threshold": 0.02,
-            "ee_frame_cfg": SceneEntityCfg("ee_frame")
+            "goal_threshold": 0.02,
+            "robot_cfg": SceneEntityCfg("robot"),
+            "ee_frame_cfg": SceneEntityCfg("ee_frame"),
+            "object_cfgs": [
+                AiffelatorScenes.Object.PencilCase.get(), 
+                AiffelatorScenes.Object.Pen.get()
+            ],
+            "place_cfgs": [
+                AiffelatorScenes.Place.PencilCase.get(), 
+                AiffelatorScenes.Place.Pen.get()
+            ]
         },
         weight=1.0
     )

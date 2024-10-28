@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from omni.isaac.lab.envs import ManagerBasedRLEnv
 
 from .scenes import AiffelatorScenes
+from .terminations import multi_object_reached_goal_place
 
 
 def object_is_lifted(
@@ -149,10 +150,14 @@ def collision_place_cube(env: ManagerBasedRLEnv) -> torch.Tensor:
 
 def stagnation_penalty(
     env: ManagerBasedRLEnv,
-    history_size: int = 50,
-    penalty: float = -5.0,
-    position_threshold: float = 0.02,
-    ee_frame_cfg: SceneEntityCfg = SceneEntityCfg("ee_frame"),
+    history_size: int,
+    penalty: float,
+    position_threshold: float,
+    goal_threshold: float,
+    robot_cfg: SceneEntityCfg,
+    ee_frame_cfg: SceneEntityCfg,
+    object_cfgs: list[SceneEntityCfg],
+    place_cfgs: list[SceneEntityCfg]
 ) -> torch.Tensor:
     """
     엔드이펙터가 특정 위치에서 오래 머무를 때 페널티를 부여하는 함수
@@ -190,8 +195,15 @@ def stagnation_penalty(
         dim=0
     )[0]
     
+    is_not_finished = ~multi_object_reached_goal_place(
+        env,
+        goal_threshold,
+        robot_cfg,
+        object_cfgs,
+        place_cfgs
+    )
     
     penalties = torch.zeros(env.num_envs, device=env.device)
-    penalties[max_position_change < position_threshold] = penalty
+    penalties[(max_position_change < position_threshold) & is_not_finished] = penalty
     
     return penalties
