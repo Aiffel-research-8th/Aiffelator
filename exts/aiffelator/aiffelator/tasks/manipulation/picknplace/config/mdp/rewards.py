@@ -46,12 +46,11 @@ def object_ee_distance(
     object: RigidObject = env.scene[object_cfg.name]
     ee_frame: FrameTransformer = env.scene[ee_frame_cfg.name]
     # Target object position: (num_envs, 3)
-    cube_pos_w = object.data.root_pos_w
+    object_pos_w = object.data.root_pos_w
     # End-effector position: (num_envs, 3)
-    # ee_w = ee_frame.data.target_pos_w[..., 0, :]
-    ee_w = ee_frame.data.source_pos_w[..., 0, :]
+    ee_w = ee_frame.data.target_pos_w[..., 0, :]
     # Distance of the end-effector to the object: (num_envs,)
-    object_ee_distance = torch.norm(cube_pos_w - ee_w, dim=1)
+    object_ee_distance = torch.norm(object_pos_w - ee_w, dim=1)
     return 1 - torch.tanh(object_ee_distance / std)
 
 def object_goal_distance(
@@ -146,4 +145,53 @@ def collision_place_cube(env: ManagerBasedRLEnv) -> torch.Tensor:
     place_cube_pen: RigidObject = env.scene[place_cube_pen_cfg.name]
     pen_cube_distance = torch.norm(torch.tensor(AiffelatorScenes.Place.Cube.pos[0], device=env.device) - place_cube_pen.data.root_pos_w[:, :3], dim=1)
 
-    return torch.abs(torch.tanh(pencil_case_cube_distance)) + torch.abs(torch.tanh(pen_cube_distance)) # 0이 아닌 경우에는 패널티
+    return torch.abs(torch.tanh(pencil_case_cube_distance)) + torch.abs(torch.tanh(pen_cube_distance))
+
+def stagnation_penalty(
+    env: ManagerBasedRLEnv,
+    history_size: int = 50,
+    penalty: float = -5.0,
+    position_threshold: float = 0.02,
+    ee_frame_cfg: SceneEntityCfg = SceneEntityCfg("ee_frame"),
+) -> torch.Tensor:
+    """
+    엔드이펙터가 특정 위치에서 오래 머무를 때 페널티를 부여하는 함수
+    
+    Args:
+        env: 환경 인스턴스
+        history_size: 저장할 이전 위치의 개수
+        penalty: 페널티 크기
+        position_threshold: 위치 변화를 감지할 임계값
+        ee_frame_cfg: 엔드이펙터 프레임 설정
+    
+    Returns:
+        torch.Tensor: 각 환경에 대한 페널티 값
+    """
+    
+    if not hasattr(env, 'ee_position_history'):
+        env.ee_position_history = torch.zeros((history_size, env.num_envs, 3), device=env.device)
+    
+    
+    ee_frame: FrameTransformer = env.scene[ee_frame_cfg.name]
+    # End-effector position: (num_envs, 3)
+    ee_pos = ee_frame.data.target_pos_w[..., 0, :]
+    #ee_pos = env.scene.get_link_state(ee_frame_cfg.name)[0]
+    
+    
+    env.ee_position_history = torch.roll(env.ee_position_history, -1, dims=0)
+    env.ee_position_history[-1] = ee_pos
+    
+    
+    max_position_change = torch.max(
+        torch.norm(
+            env.ee_position_history - env.ee_position_history[-1].unsqueeze(0),
+            dim=2
+        ),
+        dim=0
+    )[0]
+    
+    
+    penalties = torch.zeros(env.num_envs, device=env.device)
+    penalties[max_position_change < position_threshold] = penalty
+    
+    return penalties

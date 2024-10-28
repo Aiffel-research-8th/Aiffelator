@@ -28,8 +28,8 @@ class SingleObjectRewardsCfg:
     lifting_object = RewTerm(
         func=mdp.object_is_lifted_2, 
         params={
-            "minimal_height": 0.04,
-            "maximum_height": 0.09,
+            "minimal_height": 0.055,
+            "maximum_height": 0.12,
             "object_cfg": AiffelatorScenes.Object.PencilCase.get()
         }, 
         weight=15.0
@@ -40,7 +40,7 @@ class SingleObjectRewardsCfg:
         func=mdp.object_goal_place_distance,
         params={
             "std": 0.3, 
-            "minimal_height": 0.04,
+            "minimal_height": 0.055,
             "robot_cfg": SceneEntityCfg("robot"),
             "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "place_cfg": AiffelatorScenes.Place.PencilCase.get()
@@ -52,7 +52,7 @@ class SingleObjectRewardsCfg:
         func=mdp.object_goal_place_distance,
         params={
             "std": 0.3, 
-            "minimal_height": 0.04,
+            "minimal_height": 0.055,
             "robot_cfg": SceneEntityCfg("robot"),
             "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "place_cfg": AiffelatorScenes.Place.PencilCase.get()
@@ -66,13 +66,13 @@ class SingleObjectRewardsCfg:
     # # TODO
     # Action penalty
     # # penalize the rate of change of the actions using L2 squared kernel.
-    # action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
+    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
     # # slower joint velocity
-    # joint_vel = RewTerm(
-    #     func=mdp.joint_vel_l2,
-    #     weight=-1e-4,
-    #     params={"asset_cfg": SceneEntityCfg("robot")},
-    # )
+    joint_vel = RewTerm(
+        func=mdp.joint_vel_l2,
+        weight=-1e-4,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
 
 
 @configclass
@@ -102,17 +102,19 @@ class MultiObjectRewardsCfg:
     # (2) pick and lift the object
     # NOTE : picking reward would not be nessacery
     lifting_pencil_case = RewTerm(
-        func=mdp.object_is_lifted, 
+        func=mdp.object_is_lifted_2, 
         params={
-            "minimal_height": 0.2,
+            "minimal_height": 0.055,
+            "maximum_height": 0.12,
             "object_cfg": AiffelatorScenes.Object.PencilCase.get()
         }, 
         weight=15.0
     )
     lifting_pen = RewTerm(
-        func=mdp.object_is_lifted, 
+        func=mdp.object_is_lifted_2, 
         params={
-            "minimal_height": 0.2,
+            "minimal_height": 0.04,
+            "maximum_height": 0.10,
             "object_cfg": AiffelatorScenes.Object.Pen.get()
         }, 
         weight=15.0
@@ -123,7 +125,7 @@ class MultiObjectRewardsCfg:
         func=mdp.object_goal_place_distance,
         params={
             "std": 0.3, 
-            "minimal_height": 0.04,
+            "minimal_height": 0.055,
             "robot_cfg": SceneEntityCfg("robot"),
             "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "place_cfg": AiffelatorScenes.Place.PencilCase.get()
@@ -135,12 +137,12 @@ class MultiObjectRewardsCfg:
         func=mdp.object_goal_place_distance,
         params={
             "std": 0.3, 
-            "minimal_height": 0.04,
+            "minimal_height": 0.055,
             "robot_cfg": SceneEntityCfg("robot"),
             "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "place_cfg": AiffelatorScenes.Place.PencilCase.get()
         },
-        weight=1.0,
+        weight=5.0,
     )
     
     pen_goal_tracking = RewTerm(
@@ -164,7 +166,7 @@ class MultiObjectRewardsCfg:
             "object_cfg": AiffelatorScenes.Object.Pen.get(),
             "place_cfg": AiffelatorScenes.Place.Pen.get()
         },
-        weight=1.0,
+        weight=5.0,
     )
     
     # completed_task = RewTerm( 
@@ -192,13 +194,24 @@ class MultiObjectRewardsCfg:
     # # dropping object
     # # TODO
     # Action penalty
-    # action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
+    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
 
-    # joint_vel = RewTerm(
-    #     func=mdp.joint_vel_l2,
-    #     weight=-1e-4,
-    #     params={"asset_cfg": SceneEntityCfg("robot")},
-    # )
+    joint_vel = RewTerm(
+        func=mdp.joint_vel_l2,
+        weight=-1e-4,
+        params={"asset_cfg": SceneEntityCfg("robot")},
+    )
+    
+    stagnation_penalty = RewTerm(
+        func=mdp.stagnation_penalty,
+        params={
+            "history_size": 50,
+            "penalty": -5.0,
+            "position_threshold": 0.02,
+            "ee_frame_cfg": SceneEntityCfg("ee_frame")
+        },
+        weight=1.0
+    )
     
     # dropped_objects = RewTerm(
     #     func=mdp.drop_objects,
