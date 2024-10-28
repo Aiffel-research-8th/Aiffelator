@@ -88,7 +88,7 @@ class AiffelatorScenes:
             usd_path = "omniverse://localhost/Projects/aiffelator/pen.usd"
             name = "Pen"
             prim_path = "{ENV_REGEX_NS}/Pen"
-            pos = [0.5-0.03927, -0.3-0.0084, 0.01-0.0336]
+            pos = [0.5-0.03927, -0.3-0.0084, 0.01]
             rot = [0.70711, 0.70711, 0, 0]
             scale = (1.0, 1.0, 1.0) #(0.001, 0.001, 0.001)
             pose_range = {"x": (-0.1, 0.0), "y": (-0.1, 0.1), "z": (0.0, 0.0)}

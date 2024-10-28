@@ -26,9 +26,10 @@ class SingleObjectRewardsCfg:
     # (2) pick and lift the object
     # NOTE : picking reward would not be nessacery
     lifting_object = RewTerm(
-        func=mdp.object_is_lifted, 
+        func=mdp.object_is_lifted_2, 
         params={
-            "minimal_height": 0.15,
+            "minimal_height": 0.04,
+            "maximum_height": 0.09,
             "object_cfg": AiffelatorScenes.Object.PencilCase.get()
         }, 
         weight=15.0
@@ -39,7 +40,7 @@ class SingleObjectRewardsCfg:
         func=mdp.object_goal_place_distance,
         params={
             "std": 0.3, 
-            "minimal_height": 0.09,
+            "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
             "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "place_cfg": AiffelatorScenes.Place.PencilCase.get()
@@ -51,7 +52,7 @@ class SingleObjectRewardsCfg:
         func=mdp.object_goal_place_distance,
         params={
             "std": 0.3, 
-            "minimal_height": 0.09,
+            "minimal_height": 0.04,
             "robot_cfg": SceneEntityCfg("robot"),
             "object_cfg": AiffelatorScenes.Object.PencilCase.get(),
             "place_cfg": AiffelatorScenes.Place.PencilCase.get()
