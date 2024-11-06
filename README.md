@@ -1,5 +1,5 @@
 # Aiffelator
-Robot arm pick &amp; place project with reinforcement learning
+Robot arm Pick &amp; Place project with reinforcement learning
 
 ## Team
 <table border="" cellspacing="0" cellpadding="0" max-width="2000px">
